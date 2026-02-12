@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>For My Love ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            text-align: center;
+            color: white;
+            overflow-x: hidden;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+        }
+
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 34px;
+        }
+
+        .love-img {
+            width: 250px;
+            border-radius: 20px;
+            margin-top: 20px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .typing {
+            font-size: 20px;
+            margin-top: 20px;
+            min-height: 60px;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            background-color: white;
+            color: #ff4f81;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ffe6ec;
+        }
+
+        .hidden-message {
+            display: none;
+            margin-top: 20px;
+            font-size: 20px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .hidden-photo {
+            display: none;
+            width: 250px;
+            border-radius: 20px;
+            margin-top: 20px;
+            box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -10px;
+            font-size: 20px;
+            animation: float 5s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+
+        footer {
+            margin-top: 40px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <h1>To My Beautiful GIRL❤️,DUMMI❤️,Kooti❤️</h1>
+
+        <!-- Photo before click -->
+        <img src="love.jpg" alt="My Love😘😘" class="love-img">
+
+        <div class="typing" id="typing"></div>
+
+        <button id="loveButton" onclick="startLove()">Click Here DUMMI😍❤️ 💌</button>
+
+        <!-- Hidden photo after click -->
+        <img src="herphoto.jpg" alt="My Queen ❤️" class="hidden-photo" id="herPhoto">
+
+        <div class="hidden-message" id="message">
+            I am truly sorry kane...if I hurt you🥺❤️ <br><br>
+            ninge kopa barstini jaglanu madtini. <br>
+            DUMMI❤️ DUMMI❤️ DUMMI❤️ DUMMI❤️ DUMMI❤️❤️❤️💕 <br><br>
+            Please Skhemse DUMMI❤️❤️❤️........🥺
+        </div>
+
+        <footer>
+            Made with ❤️ Ninna Pritiya DUMMA❤️😘😘 LOVE YOU DUMMU❤️😘😘!!!!!!!!!!
+        </footer>
+    </div>
+
+    <script>
+        const text = "You are the best thing that ever happened to me Kooti...";
+        let index = 0;
+
+        function typeEffect() {
+            if (index < text.length) {
+                document.getElementById("typing").innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeEffect, 50);
+            }
+        }
+
+        function startLove() {
+            // Hide button
+            document.getElementById("loveButton").style.display = "none";
+
+            // Show message
+            document.getElementById("message").style.display = "block";
+
+            // Show her photo
+            document.getElementById("herPhoto").style.display = "block";
+
+            // Play music
+            document.getElementById("bgMusic").play();
+
+            // Start typing
+            typeEffect();
+        }
+
+        setInterval(() => {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 10 + "px";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }, 500);
+    </script>
+
+</body>
+</html>
