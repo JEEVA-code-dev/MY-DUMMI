@@ -1,175 +1,322 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>For My Love ❤️</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', sans-serif;
-            text-align: center;
-            color: white;
-            overflow-x: hidden;
-            background: linear-gradient(to right, #ff758c, #ff7eb3);
-        }
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:black;
+    overflow-x:hidden;
+    text-align:center;
+    color:white;
+}
 
-        .container {
-            margin-top: 50px;
-            padding: 20px;
-        }
+/* ---------------- START SCREEN ---------------- */
+.start-screen{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
 
-        h1 {
-            font-size: 34px;
-        }
+#startBtn{
+    padding:20px 40px;
+    font-size:22px;
+    border:none;
+    border-radius:40px;
+    background:white;
+    color:#ff4f81;
+    cursor:pointer;
+    box-shadow:0 0 30px #ff4f81;
+}
 
-        .love-img {
-            width: 250px;
-            border-radius: 20px;
-            margin-top: 20px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
-        }
+/* ---------------- MAIN ---------------- */
+.main{
+    display:none;
+    min-height:100vh;
+    padding:20px;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3);
+    position:relative;
+}
 
-        .typing {
-            font-size: 20px;
-            margin-top: 20px;
-            min-height: 60px;
-        }
+/* ---------------- RAINBOW TEXT ---------------- */
+.rainbow{
+    font-size:28px;
+    font-weight:bold;
+    animation:rainbow 4s linear infinite;
+}
+@keyframes rainbow{
+    0%{color:red}
+    20%{color:orange}
+    40%{color:yellow}
+    60%{color:lime}
+    80%{color:cyan}
+    100%{color:violet}
+}
 
-        button {
-            margin-top: 25px;
-            padding: 12px 25px;
-            font-size: 18px;
-            border: none;
-            border-radius: 25px;
-            background-color: white;
-            color: #ff4f81;
-            cursor: pointer;
-        }
+/* ---------------- BIG HEART ---------------- */
+.big-heart{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    font-size:150px;
+    opacity:0;
+}
+.big-heart.show{
+    animation:bigHeart 1.5s forwards;
+}
+@keyframes bigHeart{
+    0%{transform:translate(-50%,-50%) scale(0);opacity:1}
+    60%{transform:translate(-50%,-50%) scale(3);opacity:1}
+    100%{transform:translate(-50%,-50%) scale(4);opacity:0}
+}
 
-        button:hover {
-            background-color: #ffe6ec;
-        }
+/* ---------------- FALLING HEARTS ---------------- */
+.fall{
+    position:fixed;
+    top:-20px;
+    font-size:20px;
+    animation:fall 6s linear infinite;
+}
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
 
-        .hidden-message {
-            display: none;
-            margin-top: 20px;
-            font-size: 20px;
-            animation: fadeIn 2s ease-in;
-        }
+/* ---------------- BURST HEART ---------------- */
+.small-heart{
+    position:fixed;
+    top:50%;
+    left:50%;
+    animation:burst 2s forwards;
+}
+@keyframes burst{
+    to{
+        transform:translate(var(--x),var(--y));
+        opacity:0;
+    }
+}
 
-        .hidden-photo {
-            display: none;
-            width: 250px;
-            border-radius: 20px;
-            margin-top: 20px;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
-            animation: fadeIn 2s ease-in;
-        }
+/* ---------------- SPARKLES ---------------- */
+.sparkle{
+    position:fixed;
+    width:4px;
+    height:4px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+    from{opacity:.2}
+    to{opacity:1}
+}
 
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
+/* ---------------- photo glow ---------------- */
+.photo-row{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
 
-        .heart {
-            position: fixed;
-            bottom: -10px;
-            font-size: 20px;
-            animation: float 5s linear infinite;
-        }
+.photo-row img{
+    width:200px;
+    border-radius:15px;
+    display:block;
+    animation: glow 2s infinite alternate;
+}
 
-        @keyframes float {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-100vh); opacity: 0; }
-        }
 
-        footer {
-            margin-top: 40px;
-            font-size: 14px;
-            opacity: 0.8;
-        }
-    </style>
+
+/* ---------------- SLIDESHOW ---------------- */
+.carousel{
+    width:260px;
+    height:260px;
+    margin:auto;
+    overflow:hidden;
+    border-radius:20px;
+    margin-top:20px;
+}
+.carousel img{
+    width:100%;
+    display:none;
+}
+
+/* ---------------- INSTAGRAM GRID ---------------- */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    margin-top:20px;
+}
+.grid img{
+    width:100%;
+    border-radius:10px;
+}
+
+/* ---------------- TYPING ---------------- */
+.typing{
+    animation: glowText 2s infinite alternate;
+}
+
+@keyframes glowText{
+    from{ text-shadow:0 0 10px #fff; }
+    to{ text-shadow:0 0 25px #ff4f81; }
+}
+
+/* ---------------- POPUP ---------------- */
+.popup{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:white;
+    color:#ff4f81;
+    padding:10px 20px;
+    border-radius:20px;
+    display:none;
+}
+/* ---------------- beat-heart ---------------- */
+.beat-heart{
+    font-size:100px;
+    margin-top:15px;
+    animation: heartbeat 1s infinite;
+    text-shadow:0 0 20px #ff4f81;
+}
+
+@keyframes heartbeat{
+    0%{transform:scale(1);}
+    25%{transform:scale(1.2);}
+    40%{transform:scale(1);}
+    60%{transform:scale(1.3);}
+    100%{transform:scale(1);}
+}
+
+
+/* ---------------- FINAL LINE ---------------- */
+.final-line{
+    margin-top:25px;
+    font-weight:bold;
+}
+</style>
 </head>
 
 <body>
 
-    <!-- Background Music -->
-    <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
+<audio id="bgMusic" loop>
+<source src="music.mp3">
+</audio>
 
-    <div class="container">
-        <h1>To My Beautiful GIRL❤️,DUMMI❤️,Kooti❤️</h1>
+<div class="start-screen" id="start">
+<button id="startBtn">Click Here DUMMI😍❤️ 💌</button>
+</div>
 
-        <!-- Photo before click -->
-        <img src="love.jpg" alt="My Love😘😘" class="love-img">
+<div class="big-heart" id="bigHeart">❤️</div>
 
-        <div class="typing" id="typing"></div>
+<div class="main" id="main">
 
-        <button id="loveButton" onclick="startLove()">Click Here DUMMI😍❤️ 💌</button>
+<h1>To My Beautiful GIRL❤️ DUMMI❤️ Kooti❤️</h1>
 
-        <!-- Hidden photo after click -->
-        <img src="herphoto.jpg" alt="My Queen ❤️" class="hidden-photo" id="herPhoto">
+<img src="love.jpg" class="love-img">
 
-        <div class="hidden-message" id="message">
-            I am truly sorry kane...if I hurt you🥺❤️ <br><br>
-            ninge kopa barstini jaglanu madtini. <br>
-            DUMMI❤️ DUMMI❤️ DUMMI❤️ DUMMI❤️ DUMMI❤️❤️❤️💕 <br><br>
-            Please Skhemse DUMMI❤️❤️❤️........🥺
-        </div>
+<div class="typing" id="typing"></div>
 
-        <footer>
-            Made with ❤️ Ninna Pritiya DUMMA❤️😘😘 LOVE YOU DUMMU❤️😘😘!!!!!!!!!!
-        </footer>
-    </div>
+<div class="blast" id="blast">❤️</div>
 
-    <script>
-        const text = "You are the best thing that ever happened to me Kooti...";
-        let index = 0;
+<div class="photo-row" id="photos">
+<img src="herphoto1.jpg"> 
+<img src="herphoto2.jpg">
+<img src="herphoto3.jpg">
+<img src="herphoto4.jpg">
+</div>
 
-        function typeEffect() {
-            if (index < text.length) {
-                document.getElementById("typing").innerHTML += text.charAt(index);
-                index++;
-                setTimeout(typeEffect, 50);
-            }
-        }
+<div class="message" id="message"> I am truly sorry kane... if I hurt you 🥺❤️<br> ninge kopa barstini jaglanu madtini.<br><br> DUMMI❤️ DUMMI❤️ DUMMI❤️ </div>
 
-        function startLove() {
-            // Hide button
-            document.getElementById("loveButton").style.display = "none";
+<div class="final-line">
+Made with ❤️ Ninna Pritiya DUMMA❤️😘😘 LOVE YOU DUMMU❤️😘😘!!!!!!!!!!
+</div>
+<div class="beat-heart">❤️</div>
+<div class="popup" id="popup">💝 Surprise! I Love You Forever 💝</div>
+</div>
+<script>
+const text="You are the best thing that ever happened to me Kooti ❤️";
+let i=0;
 
-            // Show message
-            document.getElementById("message").style.display = "block";
+function typeEffect(){
+ if(i<text.length){
+   typing.innerHTML+=text.charAt(i);
+   i++;
+   setTimeout(typeEffect,40);
+ }
+}
 
-            // Show her photo
-            document.getElementById("herPhoto").style.display = "block";
+/* burst hearts */
+function burst(){
+ for(let j=0;j<20;j++){
+   let h=document.createElement("div");
+   h.className="small-heart";
+   h.innerHTML="💞";
+   h.style.setProperty('--x',(Math.random()*600-300)+"px");
+   h.style.setProperty('--y',(Math.random()*600-300)+"px");
+   document.body.appendChild(h);
+   setTimeout(()=>h.remove(),2000);
+ }
+}
 
-            // Play music
-            document.getElementById("bgMusic").play();
+/* falling hearts */
+setInterval(()=>{
+ let f=document.createElement("div");
+ f.className="fall";
+ f.innerHTML="💖";
+ f.style.left=Math.random()*100+"vw";
+ document.body.appendChild(f);
+ setTimeout(()=>f.remove(),6000);
+},300);
 
-            // Start typing
-            typeEffect();
-        }
+/* sparkles */
+for(let i=0;i<60;i++){
+ let s=document.createElement("div");
+ s.className="sparkle";
+ s.style.left=Math.random()*100+"vw";
+ s.style.top=Math.random()*100+"vh";
+ document.body.appendChild(s);
+}
 
-        setInterval(() => {
-            const heart = document.createElement("div");
-            heart.className = "heart";
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = Math.random() * 20 + 10 + "px";
-            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-            document.body.appendChild(heart);
+/* slideshow */
+let slides=document.querySelectorAll(".carousel img");
+let index=0;
+setInterval(()=>{
+ slides.forEach(img=>img.style.display="none");
+ slides[index].style.display="block";
+ index=(index+1)%slides.length;
+},2000);
 
-            setTimeout(() => {
-                heart.remove();
-            }, 5000);
-        }, 500);
-    </script>
+/* fireworks */
+setInterval(()=>{
+ burst();
+},3000);
+
+function startLove(){
+ start.style.display="none";
+ main.style.display="block";
+ bigHeart.classList.add("show");
+ bgMusic.play().catch(()=>{});
+ typeEffect();
+ burst();
+
+ setTimeout(()=>{
+   popup.style.display="block";
+ },5000);
+}
+
+startBtn.onclick=startLove;
+</script>
 
 </body>
-
 </html>
-
