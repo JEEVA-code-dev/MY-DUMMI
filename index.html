@@ -5,21 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
     font-family:'Segoe UI',sans-serif;
     background:black;
-    overflow-x:hidden;
+    overflow:hidden; /* STOP SCROLL COMPLETELY */
     text-align:center;
     color:white;
 }
 
-/* START SCREEN */
+/* START SCREEN (FULL FIXED) */
 .start-screen{
+    position:fixed;
+    width:100%;
     height:100vh;
+    background:black;
     display:flex;
     justify-content:center;
     align-items:center;
+    z-index:1000;
 }
 
 #startBtn{
@@ -41,13 +50,13 @@ body{
     background:linear-gradient(135deg,#ff758c,#ff7eb3);
 }
 
-/* BIG HEART (BOTTOM BLINK ONLY) */
+/* BIG HEART BOTTOM */
 .big-heart{
     position:fixed;
-    bottom:20px;
+    bottom:15px;
     left:50%;
     transform:translateX(-50%);
-    font-size:90px;
+    font-size:85px;
     display:none;
 }
 
@@ -62,7 +71,7 @@ body{
     100%{transform:translateX(-50%) scale(1);}
 }
 
-/* SCREEN SHAKE */
+/* SHAKE */
 @keyframes shake {
   0% { transform: translate(0,0); }
   25% { transform: translate(-5px,5px); }
@@ -72,7 +81,7 @@ body{
 }
 
 .shake {
-  animation: shake 0.5s ease;
+  animation: shake 0.4s ease;
 }
 
 /* HEART RAIN */
@@ -111,6 +120,178 @@ body{
 }
 
 .photo-row img{
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border-radius:15px;
+    box-shadow:0 0 15px #ff4f81;
+}
+
+/* MESSAGE */
+.message{
+    margin-top:25px;
+    font-size:18px;
+    line-height:1.9;
+    padding:20px;
+    background:rgba(255,255,255,0.15);
+    border-radius:20px;
+    min-height:200px;
+    text-align:left;
+}
+
+/* POPUP */
+.popup{
+    position: fixed;
+    bottom: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: #ff4f81;
+    padding: 18px 35px;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 40px;
+    box-shadow: 0 0 25px #ff4f81;
+    display:none;
+}
+
+.love-img{
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    margin:10px auto;
+    box-shadow:0 0 25px #ff4f81;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop preload="auto">
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="start-screen" id="start">
+<button id="startBtn">Click Here DUMMI😍❤️ 💌</button>
+</div>
+
+<div class="main" id="main">
+
+<h1>To My Beautiful GIRL❤️ DUMMI❤️ Kooti❤️</h1>
+
+<img src="love.jpg" class="love-img">
+
+<div class="photo-row">
+  <img src="herphoto1.jpg">
+  <img src="herphoto2.jpg">
+  <img src="herphoto3.jpg">
+  <img src="herphoto4.jpg">
+</div>
+
+<div class="message" id="message"></div>
+
+<div class="popup" id="popup">
+💝 Surprise!!! I Love You Chinna 💝
+</div>
+
+</div>
+
+<div class="big-heart" id="bigHeart">❤️</div>
+
+<script>
+
+const loveLetter = `ನನ್ನ ಜೀವನದಲ್ಲಿ ದೇವರು ಕೊಟ್ಟ ಅತ್ಯಂತ ಅಮೂಲ್ಯ ಉಡುಗೊರೆ ನೀನೇ ❤️ Kooti❤️
+
+I am truly sorry kane... if I hurt you 🥺❤️
+ninge kopa nu nane barstini jaglanu nane madtini.
+
+ಓಯ್ ಕೋತಿ 💖ಏನೇ ಜಾಸ್ತಿ ಕೊಬ್ಬು ಅಲೆ ಅಲ್ವಾ!😁
+ಗುದ್ದಿದೆ ಅಂದ್ರೆ magle ...🤩
+
+ನಾನ್ ನಿನ್ನ ಎಷ್ಟೇ ಅಳುಸಿದ್ರು, ಬೈದರು, ನೋವು ಕೊಟ್ರು ಅದ್ನೆಲ್ಲಾ ತಲೆಗೆ ಹಾಕೋಳ್ ದೇ ಎಷ್ಟು ಪ್ರೀತಿ ಮಾಡ್ತೀಯ 🤗....
+And ಇಷ್ಟು ದಿನ ನಾನ್ ತರ್ಲೆ ಮತ್ತೆ ನನ್ನ ಸಹಿಸಿಕೊಂಡು ಇದೀಯ!..
+
+"ನೀನು ನನಗೆ ಸಿಕ್ಕ ಅತ್ಯಂತ ಸುಂದರ ಉಡುಗೊರೆ" ✨💝
+
+ಹುಣ್ಣಿಮೆಯ ಚಂದ್ರ 🌝 ಬೆಳದಿಂಗಳ ಬೆಳಕನ್ನು ತಂದಂತೆ ನನ್ನ ಬಾಳಿಗೆ ಬೆಳಕಿನ ಛಾಯೆ ತಂದವಳು ನೀನು... ✨✨
+ಜಾರುತ್ತಿದ್ದ ಹೃದಯವನು ಹಿಡಿದು ಪ್ರೀತಿ ಕೊಟ್ಟವಳು ನೀನು.... 💝
+ಬಿಸಿಯಾಗಿದ್ದ ನನ್ನ ಬಳಿಗೆ ತಂಗಾಳಿಯಾಗಿ ಬಂದವಳು ನೀನು.... 💞💕
+ಬರಿದಾದ ಬಾಳಿಗೆ ಸಿಹಿ ಉಣಿಸಿದವಳು ನೀನು..... 😍😘
+ನಾ ಕಂಡ ಅದ್ಬುತ ನೀನು.... 😘😘
+
+DUMMI❤️ DUMMI❤️ DUMMI❤️
+ಡುಮ್ಮಿ 💖🧿🤩`;
+
+let index = 0;
+
+const message = document.getElementById("message");
+const bgMusic = document.getElementById("bgMusic");
+const start = document.getElementById("start");
+const main = document.getElementById("main");
+const popup = document.getElementById("popup");
+const bigHeart = document.getElementById("bigHeart");
+const startBtn = document.getElementById("startBtn");
+
+/* Typing */
+function typeLetter(){
+ if(index < loveLetter.length){
+   message.innerHTML += loveLetter.charAt(index)==="\n" ? "<br>" : loveLetter.charAt(index);
+   index++;
+   setTimeout(typeLetter,25);
+ }
+}
+
+/* Heart Rain */
+function heartRain(){
+ setInterval(()=>{
+  let f=document.createElement("div");
+  f.className="fall";
+  f.innerHTML="💞";
+  f.style.left=Math.random()*100+"vw";
+  f.style.fontSize=(Math.random()*25+15)+"px";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),6000);
+ },200);
+}
+
+/* Massive Blast */
+function burst(){
+ document.body.classList.add("shake");
+ setTimeout(()=>document.body.classList.remove("shake"),400);
+
+ for(let i=0;i<100;i++){
+  let h=document.createElement("div");
+  h.className="small-heart";
+  h.innerHTML="💖";
+  let x=(Math.random()-0.5)*1200;
+  let y=(Math.random()-0.5)*1200;
+  h.style.setProperty("--x",x+"px");
+  h.style.setProperty("--y",y+"px");
+  h.style.fontSize=(Math.random()*30+20)+"px";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),2000);
+ }
+}
+
+/* Start */
+function startLove(){
+ start.remove(); /* FULL REMOVE START SCREEN */
+ document.body.style.overflow="auto"; /* Enable scroll after click */
+ main.style.display="block";
+ bigHeart.classList.add("show");
+ bgMusic.play().catch(()=>{});
+ typeLetter();
+ burst();
+ heartRain();
+ setTimeout(()=>popup.style.display="block",5000);
+}
+
+startBtn.onclick=startLove;
+
+</script>
+
+</body>
+</html>.photo-row img{
     width:150px;
     height:150px;
     object-fit:cover;
@@ -429,4 +610,5 @@ startBtn.onclick=startLove;
 
 </body>
 </html>
+
 
