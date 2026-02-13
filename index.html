@@ -339,22 +339,29 @@ setInterval(()=>{
 },3000);
 
 function startLove(){
- start.style.display="none";
- main.style.display="block";
- bigHeart.classList.add("show");
 
- const music = document.getElementById("bgMusic");
+  start.style.display="none";
+  main.style.display="block";
+  bigHeart.classList.add("show");
 
- music.pause();        // stop old cache
- music.currentTime=0;  // restart
- music.play();         // play new file
+  const music = document.getElementById("bgMusic");
 
- typeEffect();
- burst();
+  // set file dynamically (best fix for mobile)
+  music.src = "music.mp3?" + new Date().getTime();
 
- setTimeout(()=>{
-   popup.style.display="block";
- },5000);
+  music.load();
+  music.play().then(()=>{
+      console.log("Music started");
+  }).catch(err=>{
+      console.log("Autoplay blocked:", err);
+  });
+
+  typeEffect();
+  burst();
+
+  setTimeout(()=>{
+    popup.style.display="block";
+  },5000);
 }
 
 startBtn.onclick=startLove;
@@ -362,6 +369,7 @@ startBtn.onclick=startLove;
 
 </body>
 </html>
+
 
 
 
