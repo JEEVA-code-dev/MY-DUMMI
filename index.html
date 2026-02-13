@@ -102,6 +102,16 @@ body{
         opacity:0;
     }
 }
+/* ---------------- big HEART ---------------- */
+.big-heart{
+    font-size:120px;
+    text-align:center;
+    display:none;
+}
+
+.big-heart.show{
+    display:block;
+}
 
 /* ---------------- SPARKLES ---------------- */
 .sparkle{
@@ -247,7 +257,9 @@ body{
 </head>
 <body>
 <audio id="bgMusic" loop>
-<source src="music.mp3">
+
+<audio id="bgMusic" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
 </audio>
     
 <div class="start-screen" id="start">
@@ -361,6 +373,7 @@ startBtn.onclick=startLove;
 
 </body>
 </html>
+
 
 
 
