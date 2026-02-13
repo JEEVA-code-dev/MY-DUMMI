@@ -14,7 +14,7 @@ body{
     color:white;
 }
 
-/* ---------------- START SCREEN ---------------- */
+/* START SCREEN */
 .start-screen{
     height:100vh;
     display:flex;
@@ -33,16 +33,15 @@ body{
     box-shadow:0 0 30px #ff4f81;
 }
 
-/* ---------------- MAIN ---------------- */
+/* MAIN */
 .main{
     display:none;
     min-height:100vh;
     padding:20px;
     background:linear-gradient(135deg,#ff758c,#ff7eb3);
-    position:relative;
 }
 
-/* ---------------- BIG HEART ---------------- */
+/* BIG HEART */
 .big-heart{
     font-size:120px;
     display:none;
@@ -50,29 +49,27 @@ body{
 }
 .big-heart.show{
     display:block;
-    animation: heartbeat 1s infinite;
+    animation: heartbeat 1.2s infinite;
 }
 
 @keyframes heartbeat{
     0%{transform:scale(1);}
-    25%{transform:scale(1.2);}
-    40%{transform:scale(1);}
-    60%{transform:scale(1.3);}
+    50%{transform:scale(1.2);}
     100%{transform:scale(1);}
 }
 
-/* ---------------- FALLING HEARTS ---------------- */
+/* FALLING HEARTS */
 .fall{
     position:fixed;
     top:-20px;
     font-size:20px;
-    animation:fall 6s linear infinite;
+    animation:fall 6s linear forwards;
 }
 @keyframes fall{
     to{ transform:translateY(110vh); opacity:0; }
 }
 
-/* ---------------- BURST ---------------- */
+/* BURST */
 .small-heart{
     position:fixed;
     top:50%;
@@ -83,11 +80,10 @@ body{
     to{ transform:translate(var(--x),var(--y)); opacity:0; }
 }
 
-/* ---------------- PHOTO SLIDESHOW ---------------- */
-/* ---------------- PHOTO SLIDESHOW ---------------- */
+/* SLIDESHOW */
 .carousel{
-    width:320px;      /* bigger */
-    height:320px;     /* square */
+    width:320px;
+    height:320px;
     margin:auto;
     overflow:hidden;
     border-radius:25px;
@@ -98,12 +94,12 @@ body{
 .carousel img{
     width:100%;
     height:100%;
-    object-fit:cover;   /* ⭐ important (fixes face crop) */
-    object-position:center; /* center face */
+    object-fit:cover;
+    object-position:center;
     display:none;
 }
 
-/* ---------------- MESSAGE BOX ---------------- */
+/* MESSAGE */
 .message{
     margin-top:25px;
     font-size:18px;
@@ -115,7 +111,7 @@ body{
     text-align:left;
 }
 
-/* ---------------- POPUP ---------------- */
+/* POPUP */
 .popup{
     position: fixed;
     bottom: 90px;
@@ -129,13 +125,7 @@ body{
     border-radius: 40px;
     box-shadow: 0 0 25px #ff4f81;
     display:none;
-    animation: popupBounce 1s infinite alternate;
 }
-@keyframes popupBounce{
-    from{ transform: translateX(-50%) translateY(0); }
-    to{ transform: translateX(-50%) translateY(-10px); }
-}
-
 .love-img{
     width:160px;
     height:160px;
@@ -148,26 +138,22 @@ body{
 
 <body>
 
-<!-- MUSIC -->
 <audio id="bgMusic" loop preload="auto">
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- START SCREEN -->
 <div class="start-screen" id="start">
 <button id="startBtn">Click Here DUMMI😍❤️ 💌</button>
 </div>
 
 <div class="big-heart" id="bigHeart">❤️</div>
 
-<!-- MAIN -->
 <div class="main" id="main">
 
 <h1>To My Beautiful GIRL❤️ DUMMI❤️ Kooti❤️</h1>
 
 <img src="love.jpg" class="love-img">
 
-<!-- SLIDESHOW -->
 <div class="carousel">
   <img src="herphoto1.jpg" style="display:block">
   <img src="herphoto2.jpg">
@@ -175,7 +161,6 @@ body{
   <img src="herphoto4.jpg">
 </div>
 
-<!-- TYPING MESSAGE -->
 <div class="message" id="message"></div>
 
 <div class="popup" id="popup">
@@ -208,6 +193,9 @@ DUMMI❤️ DUMMI❤️ DUMMI❤️
 ಡುಮ್ಮಿ 💖🧿🤩`;
 
 let index = 0;
+let slideInterval;
+let heartInterval;
+
 const message = document.getElementById("message");
 const bgMusic = document.getElementById("bgMusic");
 const start = document.getElementById("start");
@@ -216,7 +204,7 @@ const popup = document.getElementById("popup");
 const bigHeart = document.getElementById("bigHeart");
 const startBtn = document.getElementById("startBtn");
 
-/* typing */
+/* Typing */
 function typeLetter(){
  if(index < loveLetter.length){
    message.innerHTML += loveLetter.charAt(index)==="\n" ? "<br>" : loveLetter.charAt(index);
@@ -225,40 +213,43 @@ function typeLetter(){
  }
 }
 
-/* falling hearts */
-setInterval(()=>{
- let f=document.createElement("div");
- f.className="fall";
- f.innerHTML="💖";
- f.style.left=Math.random()*100+"vw";
- document.body.appendChild(f);
- setTimeout(()=>f.remove(),6000);
-},300);
+/* Falling Hearts (slower + smoother) */
+function startFallingHearts(){
+ heartInterval = setInterval(()=>{
+    let f=document.createElement("div");
+    f.className="fall";
+    f.innerHTML="💖";
+    f.style.left=Math.random()*100+"vw";
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),6000);
+ },800);
+}
 
-/* slideshow */
-let slides=document.querySelectorAll(".carousel img");
-let slideIndex=0;
+/* Slideshow */
+function startSlideshow(){
+ let slides=document.querySelectorAll(".carousel img");
+ let slideIndex=0;
+ slideInterval = setInterval(()=>{
+   slides.forEach(img=>img.style.display="none");
+   slides[slideIndex].style.display="block";
+   slideIndex=(slideIndex+1)%slides.length;
+ },2500);
+}
 
-setInterval(()=>{
- slides.forEach(img=>img.style.display="none");
- slides[slideIndex].style.display="block";
- slideIndex=(slideIndex+1)%slides.length;
-},2000);
-
-/* burst */
+/* Burst */
 function burst(){
- for(let i=0;i<20;i++){
+ for(let i=0;i<15;i++){
   let h=document.createElement("div");
   h.className="small-heart";
   h.innerHTML="💞";
-  h.style.setProperty("--x",(Math.random()-0.5)*600+"px");
-  h.style.setProperty("--y",(Math.random()-0.5)*600+"px");
+  h.style.setProperty("--x",(Math.random()-0.5)*500+"px");
+  h.style.setProperty("--y",(Math.random()-0.5)*500+"px");
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),2000);
  }
 }
 
-/* start */
+/* Start */
 function startLove(){
  start.style.display="none";
  main.style.display="block";
@@ -266,6 +257,8 @@ function startLove(){
  bgMusic.play().catch(()=>{});
  typeLetter();
  burst();
+ startFallingHearts();
+ startSlideshow();
  setTimeout(()=>popup.style.display="block",5000);
 }
 
@@ -274,4 +267,3 @@ startBtn.onclick=startLove;
 
 </body>
 </html>
-
