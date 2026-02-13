@@ -41,17 +41,50 @@ body{
     background:linear-gradient(135deg,#ff758c,#ff7eb3);
 }
 
-/* BIG HEART */
+/* BIG HEART (only this blinks) */
 .big-heart{
     font-size:120px;
-    display:none;
     margin-top:20px;
+    display:none;
 }
 .big-heart.show{
     display:block;
+    animation: heartbeat 1s infinite;
 }
 
-/* PHOTOS IN ROW */
+@keyframes heartbeat{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+}
+
+/* HEART RAIN */
+.fall{
+    position:fixed;
+    top:-20px;
+    font-size:20px;
+    animation:fall 5s linear forwards;
+}
+@keyframes fall{
+    to{ transform:translateY(110vh); opacity:0; }
+}
+
+/* HEART BLAST */
+.small-heart{
+    position:fixed;
+    top:50%;
+    left:50%;
+    font-size:25px;
+    animation:burst 1.5s forwards;
+}
+@keyframes burst{
+    to{
+        transform:translate(var(--x),var(--y));
+        opacity:0;
+    }
+}
+
+/* PHOTOS ROW */
 .photo-row{
     display:flex;
     justify-content:center;
@@ -109,7 +142,7 @@ body{
 <body>
 
 <audio id="bgMusic" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
+<source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="start-screen" id="start">
@@ -124,7 +157,6 @@ body{
 
 <img src="love.jpg" class="love-img">
 
-<!-- PHOTOS ROW -->
 <div class="photo-row">
   <img src="herphoto1.jpg">
   <img src="herphoto2.jpg">
@@ -173,12 +205,37 @@ const popup = document.getElementById("popup");
 const bigHeart = document.getElementById("bigHeart");
 const startBtn = document.getElementById("startBtn");
 
-/* Typing Effect */
+/* Typing */
 function typeLetter(){
  if(index < loveLetter.length){
    message.innerHTML += loveLetter.charAt(index)==="\n" ? "<br>" : loveLetter.charAt(index);
    index++;
    setTimeout(typeLetter,25);
+ }
+}
+
+/* Heart Rain */
+function heartRain(){
+ setInterval(()=>{
+  let f=document.createElement("div");
+  f.className="fall";
+  f.innerHTML="💖";
+  f.style.left=Math.random()*100+"vw";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),5000);
+ },400);
+}
+
+/* Heart Blast */
+function burst(){
+ for(let i=0;i<25;i++){
+  let h=document.createElement("div");
+  h.className="small-heart";
+  h.innerHTML="💞";
+  h.style.setProperty("--x",(Math.random()-0.5)*600+"px");
+  h.style.setProperty("--y",(Math.random()-0.5)*600+"px");
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1500);
  }
 }
 
@@ -189,6 +246,8 @@ function startLove(){
  bigHeart.classList.add("show");
  bgMusic.play().catch(()=>{});
  typeLetter();
+ burst();
+ heartRain();
  setTimeout(()=>popup.style.display="block",5000);
 }
 
