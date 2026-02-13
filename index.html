@@ -84,18 +84,22 @@ body{
 }
 
 /* ---------------- PHOTO SLIDESHOW ---------------- */
+/* ---------------- PHOTO SLIDESHOW ---------------- */
 .carousel{
-    width:260px;
-    height:260px;
+    width:320px;      /* bigger */
+    height:320px;     /* square */
     margin:auto;
     overflow:hidden;
-    border-radius:20px;
-    margin-top:20px;
+    border-radius:25px;
+    margin-top:25px;
+    box-shadow:0 0 25px #ff4f81;
 }
+
 .carousel img{
     width:100%;
     height:100%;
-    object-fit:cover;
+    object-fit:cover;   /* ⭐ important (fixes face crop) */
+    object-position:center; /* center face */
     display:none;
 }
 
@@ -270,3 +274,4 @@ startBtn.onclick=startLove;
 
 </body>
 </html>
+
