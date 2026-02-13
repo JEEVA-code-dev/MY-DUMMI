@@ -344,7 +344,13 @@ function startLove(){
  start.style.display="none";
  main.style.display="block";
  bigHeart.classList.add("show");
- bgMusic.play().catch(()=>{});
+
+ const music = document.getElementById("bgMusic");
+
+ music.pause();        // stop old cache
+ music.currentTime=0;  // restart
+ music.play();         // play new file
+
  typeEffect();
  burst();
 
@@ -358,5 +364,6 @@ startBtn.onclick=startLove;
 
 </body>
 </html>
+
 
 
