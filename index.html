@@ -249,8 +249,17 @@ body{
 <body>
 
 <audio id="bgMusic" loop>
-<source src="music.mp3">
+    <source src="music.mp3?v=1" type="audio/mpeg">
 </audio>
+
+<script>
+window.addEventListener("click", () => {
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.8;
+    music.play();
+}, { once:true });
+</script>
+
 
 <div class="start-screen" id="start">
 <button id="startBtn">Click Here DUMMI😍❤️ 💌</button>
@@ -361,3 +370,4 @@ startBtn.onclick=startLove;
 
 </body>
 </html>
+
