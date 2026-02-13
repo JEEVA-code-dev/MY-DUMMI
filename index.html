@@ -31,6 +31,29 @@ body{
     z-index:1000;
 }
 
+/* FRONT PAGE STARS */
+.star{
+    position:fixed;
+    color:white;
+    font-size:14px;
+    animation:twinkle 2s infinite alternate;
+    z-index:1;
+}
+
+@keyframes twinkle{
+    from{opacity:0.2;}
+    to{opacity:1;}
+}
+
+/* FRONT PAGE HEART RAIN */
+.front-fall{
+    position:fixed;
+    top:-20px;
+    animation:fall 6s linear forwards;
+    z-index:1;
+}
+
+/* BUTTON */
 #startBtn{
     padding:20px 40px;
     font-size:22px;
@@ -40,13 +63,7 @@ body{
     color:#ff4f81;
     cursor:pointer;
     box-shadow:0 0 30px #ff4f81;
-    animation:pulse 1.5s infinite;
-}
-
-@keyframes pulse{
-    0%{box-shadow:0 0 20px #ff4f81;}
-    50%{box-shadow:0 0 40px #ff4f81;}
-    100%{box-shadow:0 0 20px #ff4f81;}
+    z-index:10;
 }
 
 /* MAIN */
@@ -84,33 +101,16 @@ body{
     100%{transform:translateX(-50%) scale(1);}
 }
 
-/* LOVE IMAGE ZOOM */
+/* LOVE IMAGE */
 .love-img{
     width:160px;
     height:160px;
     border-radius:50%;
     margin:15px auto;
     box-shadow:0 0 25px #ff4f81;
-    animation:zoom 6s infinite alternate;
 }
 
-@keyframes zoom{
-    from{transform:scale(1);}
-    to{transform:scale(1.08);}
-}
-
-/* SPARKLE */
-.sparkle{
-    position:fixed;
-    font-size:18px;
-    animation:sparkleMove 3s linear forwards;
-}
-
-@keyframes sparkleMove{
-    to{ transform:translateY(-100px); opacity:0; }
-}
-
-/* HEART RAIN */
+/* HEART RAIN (MAIN) */
 .fall{
     position:fixed;
     top:-20px;
@@ -136,19 +136,6 @@ body{
     }
 }
 
-/* SHAKE */
-@keyframes shake {
-  0% { transform: translate(0,0); }
-  25% { transform: translate(-6px,6px); }
-  50% { transform: translate(6px,-6px); }
-  75% { transform: translate(-6px,-6px); }
-  100% { transform: translate(0,0); }
-}
-
-.shake {
-  animation: shake 0.4s ease;
-}
-
 /* PHOTOS */
 .photo-row{
     display:flex;
@@ -164,11 +151,6 @@ body{
     object-fit:cover;
     border-radius:15px;
     box-shadow:0 0 15px #ff4f81;
-    transition:0.5s;
-}
-
-.photo-row img:hover{
-    transform:scale(1.1);
 }
 
 /* MESSAGE */
@@ -277,54 +259,57 @@ function typeLetter(){
  }
 }
 
-/* Heart Rain */
+/* FRONT PAGE STARS */
+setInterval(()=>{
+ let s=document.createElement("div");
+ s.className="star";
+ s.innerHTML="✦";
+ s.style.left=Math.random()*100+"vw";
+ s.style.top=Math.random()*100+"vh";
+ document.body.appendChild(s);
+ setTimeout(()=>s.remove(),2000);
+},300);
+
+/* FRONT PAGE HEART RAIN */
+setInterval(()=>{
+ let f=document.createElement("div");
+ f.className="front-fall";
+ f.innerHTML="💖";
+ f.style.left=Math.random()*100+"vw";
+ document.body.appendChild(f);
+ setTimeout(()=>f.remove(),6000);
+},600);
+
+/* HEART RAIN (MAIN) */
 function heartRain(){
  setInterval(()=>{
   let f=document.createElement("div");
   f.className="fall";
   f.innerHTML="💞";
   f.style.left=Math.random()*100+"vw";
-  f.style.fontSize=(Math.random()*25+15)+"px";
   document.body.appendChild(f);
   setTimeout(()=>f.remove(),6000);
- },200);
+ },300);
 }
 
-/* Sparkle */
-function sparkleEffect(){
- setInterval(()=>{
-  let s=document.createElement("div");
-  s.className="sparkle";
-  s.innerHTML="✨";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=Math.random()*100+"vh";
-  document.body.appendChild(s);
-  setTimeout(()=>s.remove(),3000);
- },800);
-}
-
-/* Massive Blast */
+/* HEART BLAST */
 function burst(){
- document.body.classList.add("shake");
- setTimeout(()=>document.body.classList.remove("shake"),400);
-
- for(let i=0;i<120;i++){
+ for(let i=0;i<60;i++){
   let h=document.createElement("div");
   h.className="small-heart";
   h.innerHTML="💖";
-  let x=(Math.random()-0.5)*1400;
-  let y=(Math.random()-0.5)*1400;
+  let x=(Math.random()-0.5)*1200;
+  let y=(Math.random()-0.5)*1200;
   h.style.setProperty("--x",x+"px");
   h.style.setProperty("--y",y+"px");
-  h.style.fontSize=(Math.random()*35+20)+"px";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),2000);
  }
 }
 
-/* Start */
+/* START */
 function startLove(){
- start.remove();
+ start.style.display="none";
  document.body.style.overflow="auto";
  main.style.display="block";
  bigHeart.classList.add("show");
@@ -332,7 +317,6 @@ function startLove(){
  typeLetter();
  burst();
  heartRain();
- sparkleEffect();
  setTimeout(()=>popup.style.display="block",5000);
 }
 
