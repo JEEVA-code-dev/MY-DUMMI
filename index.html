@@ -246,7 +246,10 @@ body{
 </style>
 </head>
 <body>
-<audio id="bgMusic" loop preload="auto"></audio>
+<audio id="bgMusic" loop>
+<source src="music.mp3">
+</audio>
+    
 <div class="start-screen" id="start">
 <button id="startBtn">Click Here DUMMI😍❤️ 💌</button>
 </div>
@@ -339,29 +342,16 @@ setInterval(()=>{
 },3000);
 
 function startLove(){
+ start.style.display="none";
+ main.style.display="block";
+ bigHeart.classList.add("show");
+ bgMusic.play().catch(()=>{});
+ typeEffect();
+ burst();
 
-  start.style.display="none";
-  main.style.display="block";
-  bigHeart.classList.add("show");
-
-  const music = document.getElementById("bgMusic");
-
-  // set file dynamically (best fix for mobile)
-  music.src = "music.mp3?" + new Date().getTime();
-
-  music.load();
-  music.play().then(()=>{
-      console.log("Music started");
-  }).catch(err=>{
-      console.log("Autoplay blocked:", err);
-  });
-
-  typeEffect();
-  burst();
-
-  setTimeout(()=>{
-    popup.style.display="block";
-  },5000);
+ setTimeout(()=>{
+   popup.style.display="block";
+ },5000);
 }
 
 startBtn.onclick=startLove;
@@ -369,6 +359,7 @@ startBtn.onclick=startLove;
 
 </body>
 </html>
+
 
 
 
